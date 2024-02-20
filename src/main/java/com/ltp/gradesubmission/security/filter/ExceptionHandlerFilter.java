@@ -27,6 +27,8 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         } catch (EntityNotFoundException e) {
             LOGGER.info("ExceptionHandlerFilter - EntityNotFoundException: {}", e.getStackTrace());
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.getWriter().write("Username doesn't exist");
+            response.getWriter().flush();
         } catch (RuntimeException e) {
             LOGGER.info("ExceptionHandlerFilter - RuntimeException: {}", e.getStackTrace());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
