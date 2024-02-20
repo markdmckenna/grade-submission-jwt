@@ -6,20 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.ltp.gradesubmission.entity.Course;
 import com.ltp.gradesubmission.entity.Student;
 import com.ltp.gradesubmission.repository.CourseRepository;
 import com.ltp.gradesubmission.repository.StudentRepository;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @SpringBootApplication
 public class GradeSubmissionApplication implements CommandLineRunner {
 
-	@Autowired
-	StudentRepository studentRepository;
+	private StudentRepository studentRepository;
 
-	@Autowired
-	CourseRepository courseRepository;
+	private CourseRepository courseRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(GradeSubmissionApplication.class, args);
@@ -56,7 +59,11 @@ public class GradeSubmissionApplication implements CommandLineRunner {
 		for (int i = 0; i < courses.length; i++) {
 			courseRepository.save(courses[i]);
 		}
-
 	}
+
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}	
 
 }
