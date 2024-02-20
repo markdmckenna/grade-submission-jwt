@@ -62,7 +62,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.getWriter().write(failed.getMessage());
         response.getWriter().flush();
         LOGGER.info("Authentication failed");
-    }
+    }  
 
 
 }
