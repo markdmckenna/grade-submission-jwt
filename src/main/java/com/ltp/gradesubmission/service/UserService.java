@@ -5,4 +5,5 @@ import com.ltp.gradesubmission.entity.User;
 public interface UserService {
     User getUser(Long id);
     User saveUser(User user);
+    User getUser(String username);
 }

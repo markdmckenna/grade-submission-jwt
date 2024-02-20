@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.ltp.gradesubmission.exception.EntityNotFoundException;
+
 public class ExceptionHandlerFilter extends OncePerRequestFilter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandlerFilter.class);
@@ -22,10 +24,13 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         try {
             LOGGER.info("ExceptionHandlerFilter - filterChain.doFilter");
             filterChain.doFilter(request, response);           
+        } catch (EntityNotFoundException e) {
+            LOGGER.info("ExceptionHandlerFilter - EntityNotFoundException: {}", e.getStackTrace());
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         } catch (RuntimeException e) {
             LOGGER.info("ExceptionHandlerFilter - RuntimeException: {}", e.getStackTrace());
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
+        } 
 
     }
 
